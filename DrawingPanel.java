@@ -6,7 +6,7 @@
  * 
  * authors: Marty Stepp, Stanford University
  *          Stuart Reges, University of Washington
- * version: 4.05, 2016/09/07 (BJP 4th edition)
+ * version: 4.04, 2016/08/17 (BJP 4th edition)
  * (make sure to also update version string in Javadoc header below!)
  * =====================================================================
  *
@@ -128,7 +128,7 @@ import javax.swing.filechooser.FileFilter;
  * Authors: Marty Stepp (Stanford University) and Stuart Reges (University of Washington).
  *
  * <p>
- * Version: 4.05, 2016/09/07 (to accompany BJP 4th edition).
+ * Version: 4.04, 2016/08/17 (to accompany BJP 4th edition).
  * 
  * <p>
  * You can always download the latest {@code DrawingPanel} from
@@ -284,7 +284,7 @@ import javax.swing.filechooser.FileFilter;
  * - grid lines
  * 
  * @author Marty Stepp, Stanford University, and Stuart Reges, University of Washington
- * @version 4.05, 2016/09/07 (BJP 4th edition)
+ * @version 4.04, 2016/08/17 (BJP 4th edition)
  */
 public final class DrawingPanel implements ImageObserver {
     // class constants
@@ -297,7 +297,7 @@ public final class DrawingPanel implements ImageObserver {
     private static final int MAX_SIZE               = 10000;   // max width/height
     private static final int GRID_LINES_PX_GAP_DEFAULT = 10;   // default px between grid lines
     
-    private static final String VERSION             = "4.05 (2016/09/07)";
+    private static final String VERSION             = "4.04 (2016/08/17)";
     private static final String ABOUT_MESSAGE       = "DrawingPanel\n"
             + "Graphical library class to support Building Java Programs textbook\n"
             + "written by Marty Stepp, Stanford University\n"
@@ -691,7 +691,7 @@ public final class DrawingPanel implements ImageObserver {
         ensureInRange("red", r, 0, 255);
         ensureInRange("green", g, 0, 255);
         ensureInRange("blue", b, 0, 255);
-        return ((alpha & 0x000000ff) << 24)
+    	return ((alpha & 0x000000ff) << 24)
                 | ((r & 0x000000ff) << 16)
                 | ((g & 0x000000ff) << 8)
                 | ((b & 0x000000ff));
@@ -943,7 +943,7 @@ public final class DrawingPanel implements ImageObserver {
      */
     public void addKeyListener(KeyListener listener) {
         ensureNotNull("listener", listener);
-        frame.addKeyListener(listener);
+    	frame.addKeyListener(listener);
         panel.setFocusable(false);
         frame.requestFocusInWindow();
         frame.requestFocus();
@@ -955,10 +955,28 @@ public final class DrawingPanel implements ImageObserver {
      */
     public void addMouseListener(MouseListener listener) {
         ensureNotNull("listener", listener);
+        panel.addMouseListener(listener);
         if (listener instanceof MouseMotionListener) {
             panel.addMouseMotionListener((MouseMotionListener) listener);
         }
     }
+    
+    /**
+     * Adds the given event listener to respond to mouse events on this panel.
+     */
+//    public void addMouseListener(MouseMotionListener listener) {
+//        panel.addMouseMotionListener(listener);
+//        if (listener instanceof MouseListener) {
+//            panel.addMouseListener((MouseListener) listener);
+//        }
+//    }
+    
+//    /**
+//     * Adds the given event listener to respond to mouse events on this panel.
+//     */
+//    public void addMouseListener(MouseInputListener listener) {
+//        addMouseListener((MouseListener) listener);
+//    }
     
     /*
      * Whether the panel should automatically switch to animated mode
@@ -1208,7 +1226,7 @@ public final class DrawingPanel implements ImageObserver {
      * @throws IllegalArgumentException if (x, y) is out of range
      */
     public Color getPixel(int x, int y) {
-        int rgb = getPixelRGB(x, y);
+    	int rgb = getPixelRGB(x, y);
         if (getAlpha(rgb) == 0) {
             return backgroundColor;
         } else {
@@ -1231,7 +1249,7 @@ public final class DrawingPanel implements ImageObserver {
     public int getPixelRGB(int x, int y) {
         ensureInRange("x", x, 0, getWidth() - 1);
         ensureInRange("y", y, 0, getHeight() - 1);
-        int rgb = image.getRGB(x, y);
+    	int rgb = image.getRGB(x, y);
         if (getAlpha(rgb) == 0) {
             return backgroundColor.getRGB();
         } else {
@@ -1342,9 +1360,7 @@ public final class DrawingPanel implements ImageObserver {
      */
     @Override
     public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
-        if (imagePanel != null) {
-            imagePanel.imageUpdate(img, infoflags, x, y, width, height);
-        }
+        imagePanel.imageUpdate(img, infoflags, x, y, width, height);
         return false;
     }
     
@@ -1419,10 +1435,10 @@ public final class DrawingPanel implements ImageObserver {
             throw new RuntimeException("DrawingPanel.loadImage: File not found: " + filename);
         }
         Image img = Toolkit.getDefaultToolkit().getImage(filename);
-        MediaTracker mt = new MediaTracker(imagePanel == null ? new JPanel() : imagePanel);
+        MediaTracker mt = new MediaTracker(imagePanel);
         mt.addImage(img, 0);
         try {
-            mt.waitForID(0);
+            mt.waitForAll();
         } catch (InterruptedException ie) {
             // empty
         }
@@ -1584,7 +1600,7 @@ public final class DrawingPanel implements ImageObserver {
      * @throws NullPointerException if event handler is null
      */
     public void onMove(DPMouseEventHandler e) {
-        onMouseMove(e);
+    	onMouseMove(e);
     }
     
     /*
@@ -1805,30 +1821,28 @@ public final class DrawingPanel implements ImageObserver {
         return currentImageFile.toString();
     }
     
-    /**
-     * Sets whether the panel will always cover other windows (default false).
-     * @param alwaysOnTop true if the panel should always cover other windows
-     */
-    public void setAlwaysOnTop(boolean alwaysOnTop) {
-        if (frame != null) {
-            frame.setAlwaysOnTop(alwaysOnTop);
-        }
-    }
-
-    /**
-     * Sets whether the panel should use anti-aliased / smoothed graphics (default true).
-     * @param antiAlias true if the panel should be smoothed
-     */
-    public void setAntiAlias(boolean antiAlias) {
-        this.antialias = antiAlias;
-        Object value = antiAlias ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF;
-        if (g2 != null) {
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, value);
-        }
-        if (imagePanel != null) {
-            imagePanel.repaint();
-        }
-    }
+	/**
+	 * Sets whether the panel will always cover other windows (default false).
+	 * @param alwaysOnTop true if the panel should always cover other windows
+	 */
+	public void setAlwaysOnTop(boolean alwaysOnTop) {
+		if (frame != null) {
+			frame.setAlwaysOnTop(alwaysOnTop);
+		}
+	}
+	
+	/**
+	 * Sets whether the panel should use anti-aliased / smoothed graphics (default true).
+	 * @param antiAlias true if the panel should be smoothed
+	 */
+	public void setAntiAlias(boolean antiAlias) {
+		this.antialias = antiAlias;
+		Object value = antiAlias ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF;
+		if (g2 != null) {
+			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, value);
+		}
+		imagePanel.repaint();
+	}
     
     /**
      * Sets the background color of the drawing panel to be the given color.
@@ -1837,7 +1851,7 @@ public final class DrawingPanel implements ImageObserver {
      */
     public void setBackground(Color c) {
         ensureNotNull("color", c);
-        Color oldBackgroundColor = backgroundColor;
+    	Color oldBackgroundColor = backgroundColor;
         backgroundColor = c;
         if (isGraphical()) {
             panel.setBackground(c);
@@ -1880,9 +1894,7 @@ public final class DrawingPanel implements ImageObserver {
     public void setGridLines(boolean gridLines, int pxGap) {
         this.gridLines = gridLines;
         this.gridLinesPxGap = pxGap;
-        if (imagePanel != null) {
-            imagePanel.repaint();
-        }
+        imagePanel.repaint();
     }
     
     /**
@@ -1893,7 +1905,7 @@ public final class DrawingPanel implements ImageObserver {
      * @throws IllegalArgumentException if height is negative or exceeds MAX_SIZE
      */
     public void setHeight(int height) {
-        setSize(getWidth(), height);
+    	setSize(getWidth(), height);
     }
     
     /**
@@ -1961,7 +1973,7 @@ public final class DrawingPanel implements ImageObserver {
      */
     public void setPixels(Color[][] pixels) {
         ensureNotNull("pixels", pixels);
-        if (pixels != null && pixels.length > 0 && pixels[0] != null) {
+    	if (pixels != null && pixels.length > 0 && pixels[0] != null) {
             if (width != pixels[0].length || height != pixels.length) {
                 setSize(pixels[0].length, pixels.length);
             }
@@ -2018,7 +2030,7 @@ public final class DrawingPanel implements ImageObserver {
                 if (pixels[row] != null) {
                     for (int col = 0; col < width; col++) {
                         // note axis inversion, row/col => y/x
-                        image.setRGB(col, row, pixels[row][col] | PIXEL_ALPHA);
+                    	image.setRGB(col, row, pixels[row][col] | PIXEL_ALPHA);
                     }
                 }
             }
@@ -2039,10 +2051,8 @@ public final class DrawingPanel implements ImageObserver {
         
         // replace the image buffer for drawing
         BufferedImage newImage = new BufferedImage(width, height, image.getType());
-        if (imagePanel != null) {
-            imagePanel.setImage(newImage);
-        }
-        newImage.getGraphics().drawImage(image, 0, 0, imagePanel == null ? new JPanel() : imagePanel);
+        imagePanel.setImage(newImage);
+        newImage.getGraphics().drawImage(image, 0, 0, imagePanel);
 
         this.width = width;
         this.height = height;
@@ -2252,7 +2262,7 @@ public final class DrawingPanel implements ImageObserver {
      */
     public void sleep(int millis) {
         ensureInRange("millis", millis, 0, Integer.MAX_VALUE);
-        if (isGraphical() && frame.isVisible()) {
+    	if (isGraphical() && frame.isVisible()) {
             // if not even displaying, we don't actually need to sleep
             if (millis > 0) {
                 try {
@@ -2337,9 +2347,9 @@ public final class DrawingPanel implements ImageObserver {
             }
             
             if (currentZoom != 1) {
-                frame.setTitle(TITLE + " (" + currentZoom + "x zoom)");
+            	frame.setTitle(TITLE + " (" + currentZoom + "x zoom)");
             } else {
-                frame.setTitle(TITLE);
+            	frame.setTitle(TITLE);
             }
         }
     }
@@ -3223,7 +3233,7 @@ public final class DrawingPanel implements ImageObserver {
         
         // constructs the image panel
         public ImagePanel(Image image) {
-            super(/* isDoubleBuffered */ true);
+        	super(/* isDoubleBuffered */ true);
             setImage(image);
             setBackground(Color.WHITE);
             setPreferredSize(new Dimension(image.getWidth(this), image.getHeight(this)));

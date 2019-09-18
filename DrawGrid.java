@@ -12,6 +12,7 @@ public class DrawGrid {
 
 	public static final int SIZE = 150;
 	static String shape = "X";
+	static boolean isGameOver = false;
 
 	static int square1X = DrawGrid.col1 / 2 - SIZE / 3;
 	static int square2X = (DrawGrid.col2 - DrawGrid.col1) / 2 + DrawGrid.col1 - SIZE / 3;
@@ -23,9 +24,9 @@ public class DrawGrid {
 	static Game game = new Game();
 
 	DrawGrid() {
-//		setPanel(new DrawingPanel(xSize, ySize));
-//		getPanel().setBackground(Color.WHITE);
-//		g = getPanel().getGraphics();
+		// setPanel(new DrawingPanel(xSize, ySize));
+		// getPanel().setBackground(Color.WHITE);
+		// g = getPanel().getGraphics();
 
 		drawColumns();
 		drawRows();
@@ -51,10 +52,10 @@ public class DrawGrid {
 
 	public static void drawShape(int x, int y) {
 
-		if (Game.checkGrid() == false) {
+		if (!isGameOver) {
 			g.setFont(new Font("Arial", Font.CENTER_BASELINE, SIZE));
 
-			if (x < DrawGrid.col1 && y < DrawGrid.row1 && !Game.getMap().get(1).equals(shape)) {
+			if (x < DrawGrid.col1 && y < DrawGrid.row1) {
 				g.drawString(shape, square1X, row1Y);
 				Game.getMap().put(1, shape);
 			} else if ((x > DrawGrid.col1 && x < DrawGrid.col2) && y < DrawGrid.row1) {
@@ -87,6 +88,10 @@ public class DrawGrid {
 				Game.getMap().put(9, shape);
 			}
 			shape = shape == "X" ? "O" : "X";
+
+			if(Game.checkGrid() == true){
+				isGameOver = true;
+			}
 		}
 	}
 }

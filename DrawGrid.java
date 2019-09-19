@@ -1,7 +1,7 @@
 import java.awt.*;
 
 public class DrawGrid {
-	public static final int xSize = 650;
+	public static final int xSize = 450;
 	public static final int ySize = 400;
 	public static int col1 = xSize / 3;
 	public static int col2 = col1 * 2;
@@ -51,47 +51,71 @@ public class DrawGrid {
 	}
 
 	public static void drawShape(int x, int y) {
-
+		int cell = (x/150) * (y/150);
+		
 		if (!isGameOver) {
 			g.setFont(new Font("Arial", Font.CENTER_BASELINE, SIZE));
 
 			if (x < DrawGrid.col1 && y < DrawGrid.row1) {
-				g.drawString(shape, square1X, row1Y);
-				Game.getMap().put(1, shape);
+				if (Game.getMap()[0] == 0) {
+					g.drawString(shape, square1X, row1Y);
+					Game.getMap()[0] = shape == "X" ? 1 : 2;
+					shape = shape == "X" ? "O" : "X";
+				}
 			} else if ((x > DrawGrid.col1 && x < DrawGrid.col2) && y < DrawGrid.row1) {
-				g.drawString(shape, square2X, row1Y);
-				Game.getMap().put(2, shape);
+				if (Game.getMap()[1] == 0) {
+					g.drawString(shape, square2X, row1Y);
+					Game.getMap()[1] = shape == "X" ? 1 : 2;
+					shape = shape == "X" ? "O" : "X";
+				}
 			} else if (x > DrawGrid.col2 && y < DrawGrid.row1) {
-				g.drawString(shape, square3X, row1Y);
-				Game.getMap().put(3, shape);
+				if (Game.getMap()[2] == 0) {
+					g.drawString(shape, square3X, row1Y);
+					Game.getMap()[2] = shape == "X" ? 1 : 2;
+					shape = shape == "X" ? "O" : "X";
+				}
 			}
 
 			if (x < DrawGrid.col1 && (y < DrawGrid.row2 && y > DrawGrid.row1)) {
-				g.drawString(shape, square1X, row2Y);
-				Game.getMap().put(4, shape);
+				if (Game.getMap()[3] == 0) {
+					g.drawString(shape, square1X, row2Y);
+					Game.getMap()[3] = shape == "X" ? 1 : 2;
+					shape = shape == "X" ? "O" : "X";
+				}
 			} else if ((x > DrawGrid.col1 && x < DrawGrid.col2) && (y < DrawGrid.row2 && y > DrawGrid.row1)) {
-				g.drawString(shape, square2X, row2Y);
-				Game.getMap().put(5, shape);
+				if (Game.getMap()[4] == 0) {
+					g.drawString(shape, square2X, row2Y);
+					Game.getMap()[4] = shape == "X" ? 1 : 2;
+					shape = shape == "X" ? "O" : "X";
+				}
 			} else if (x > DrawGrid.col2 && (y < DrawGrid.row2 && y > DrawGrid.row1)) {
-				g.drawString(shape, square3X, row2Y);
-				Game.getMap().put(6, shape);
+				if (Game.getMap()[5] == 0) {
+					g.drawString(shape, square3X, row2Y);
+					Game.getMap()[5] = shape == "X" ? 1 : 2;
+					shape = shape == "X" ? "O" : "X";
+				}
 			}
 
 			if (x < DrawGrid.col1 && y > DrawGrid.row2) {
-				g.drawString(shape, square1X, row3Y);
-				Game.getMap().put(7, shape);
+				if (Game.getMap()[6] == 0) {
+					g.drawString(shape, square1X, row3Y);
+					Game.getMap()[6] = shape == "X" ? 1 : 2;
+					shape = shape == "X" ? "O" : "X";
+				}
 			} else if ((x > DrawGrid.col1 && x < DrawGrid.col2) && y > DrawGrid.row2) {
-				g.drawString(shape, square2X, row3Y);
-				Game.getMap().put(8, shape);
+				if (Game.getMap()[7] == 0) {
+					g.drawString(shape, square2X, row3Y);
+					Game.getMap()[7] = shape == "X" ? 1 : 2;
+					shape = shape == "X" ? "O" : "X";
+				}
 			} else if (x > DrawGrid.col2 && y > DrawGrid.row2) {
-				g.drawString(shape, square3X, row3Y);
-				Game.getMap().put(9, shape);
+				if (Game.getMap()[8] == 0) {
+					g.drawString(shape, square3X, row3Y);
+					Game.getMap()[8] = shape == "X" ? 1 : 2;
+					shape = shape == "X" ? "O" : "X";
+				}
 			}
-			shape = shape == "X" ? "O" : "X";
-
-			if(Game.checkGrid() == true){
-				isGameOver = true;
-			}
+			isGameOver = Game.checkGrid();
 		}
 	}
 }

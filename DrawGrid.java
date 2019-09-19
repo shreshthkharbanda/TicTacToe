@@ -7,12 +7,13 @@ public class DrawGrid {
 	public static int col2 = col1 * 2;
 	public static int row1 = ySize / 3;
 	public static int row2 = row1 * 2;
-	private static DrawingPanel panel = new DrawingPanel(xSize, ySize);
-	public static Graphics g = getPanel().getGraphics();
-
 	public static final int SIZE = 175;
 	static String shape = "X";
 	static boolean isGameOver = false;
+	
+	
+	private static DrawingPanel panel = new DrawingPanel(xSize, ySize);
+	public static Graphics g = getPanel().getGraphics();
 
 	static Game game = new Game();
 

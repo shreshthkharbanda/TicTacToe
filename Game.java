@@ -10,7 +10,7 @@ public class Game {
 	public static void main(String[] args) {
 		startGame();
 	}
-
+	
 	public static int[] getMap() {
 		return map;
 	}
@@ -40,10 +40,10 @@ public class Game {
 			winner = shapes[map[0]-1];
 			return true;
 		} else if ((map[3] != 0) && map[3] == (map[4]) && map[4] == (map[5])) {
-			winner = shapes[map[0]-1];
+			winner = shapes[map[3]-1];
 			return true;
 		} else if ((map[6] != 0) && map[6] == (map[7]) && map[7] == (map[8])) {
-			winner = shapes[map[0]-1];
+			winner = shapes[map[6]-1];
 			return true;
 		}
 		return false;
@@ -54,10 +54,10 @@ public class Game {
 			winner = shapes[map[0]-1];
 			return true;
 		} else if ((map[1] != 0) && map[1] == (map[4]) && map[4] == (map[7])) {
-			winner = shapes[map[0]-1];
+			winner = shapes[map[1]-1];
 			return true;
 		} else if ((map[2] != 0) && map[2] == (map[5]) && map[5] == (map[8])) {
-			winner = shapes[map[0]-1];
+			winner = shapes[map[2]-1];
 			return true;
 		}
 		return false;
@@ -68,7 +68,7 @@ public class Game {
 			winner = shapes[map[0]-1];
 			return true;
 		} else if ((map[2] != 0) && map[2] == (map[4]) && map[4] == (map[6])) {
-			winner = shapes[map[0]-1];
+			winner = shapes[map[2]-1];
 			return true;
 		}
 		return false;

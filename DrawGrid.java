@@ -1,4 +1,5 @@
 import java.awt.*;
+import javax.swing.JOptionPane;
 
 public class DrawGrid {
 	public static final int xSize = 450;
@@ -8,12 +9,12 @@ public class DrawGrid {
 	public static int row1 = ySize / 3;
 	public static int row2 = row1 * 2;
 	public static final int SIZE = 175;
-	static String shape = "X";
-	static boolean isGameOver = false;
+	String shape = "X";
+	boolean isGameOver = false;
 	
 	
-	private static DrawingPanel panel = new DrawingPanel(xSize, ySize);
-	public static Graphics g = getPanel().getGraphics();
+	private DrawingPanel panel = new DrawingPanel(xSize, ySize);
+	public Graphics g = getPanel().getGraphics();
 
 	static Game game = new Game();
 
@@ -32,15 +33,12 @@ public class DrawGrid {
 		g.drawLine(0, row2, xSize, row2);
 	}
 
-	public static DrawingPanel getPanel() {
+	public DrawingPanel getPanel() {
 		return panel;
 	}
 
-	public void setPanel(DrawingPanel panel) {
-		DrawGrid.panel = panel;
-	}
 
-	public static void drawShape(int x, int y) {
+	public void drawShape(int x, int y) {
 		int cellX = (x / 150);
 		int cellY = (y / 150);
 		int cell = cellX + (cellY*3);
@@ -56,6 +54,16 @@ public class DrawGrid {
 			}
 
 			isGameOver = Game.checkGrid();
+		}
+	}
+
+	public void playAgain(String winner){
+		int answer = JOptionPane.showConfirmDialog(null, "Would you like to play again?",winner, JOptionPane.YES_NO_OPTION);
+		if(answer == 0){
+			Game.closePrev();
+			Game.startGame();
+		}else{
+			System.exit(0);
 		}
 	}
 }

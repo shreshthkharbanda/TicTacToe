@@ -1,6 +1,10 @@
 import java.awt.*;
 import javax.swing.JOptionPane;
 
+/*
+ Rename this file to GameDisplay
+*/
+
 public class DrawGrid {
 	public static final int xSize = 450;
 	public static final int ySize = 450;

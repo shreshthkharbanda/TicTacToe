@@ -1,9 +1,17 @@
+/**
+ * 
+ * @author Shantanu Singh & Shreshth Kharbanda
+ * Advance Programming Topics
+ * Period 3
+ * TicTacToe
+ * 
+ * The GameUI class is responsible for displaying and setting up all the features
+ * of the game interface, such as making the grid, drawing the shapes, and the
+ * choice dialog.
+ * 
+ */
 import java.awt.*;
 import javax.swing.JOptionPane;
-
-/*
- Rename this file to GameDisplay
-*/
 
 public class GameUI {
 	public static final int xSize = 450;
@@ -25,8 +33,6 @@ public class GameUI {
 	}
 
 	public void drawGrid() {
-		// g.setColor(Color.WHITE);
-		// g.fillRect(0,0, xSize, ySize);
 		panel.clear();
 		// Cols
 		g.setColor(Color.BLACK);

@@ -1,7 +1,11 @@
 /**
- * @author Shantanu Singh
  * 
- * This class is responsible for handling all of the games logical components,
+ * @author Shantanu Singh & Shreshth Kharbanda
+ * Advance Programming Topics
+ * Period 3
+ * TicTacToe
+ * 
+ * The GameEngine class is responsible for handling all of the games logical components,
  * such as checking for winner and resetting the game and its values.
  * 
  */

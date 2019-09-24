@@ -1,7 +1,7 @@
 /**
  * 
- * @author Shantanu Singh & Shreshth Kharbanda
- * Advance Programming Topics
+ * @author Shantanu Singh and Shreshth Kharbanda
+ * Advanced Programming Topics
  * Period 3
  * TicTacToe
  * 
@@ -25,11 +25,10 @@ public class GameEngine {
 	static String[] shapes = { "X", "O" };
 
 	/**
-	 * Main Method is responsible for initilazing the GameUI object, 
+	 * Main Method is responsible for initializing the GameUI object, 
 	 * as well as set the onClick event handler. Calls startGame method to start
-	 * the game.
-	 * 
-	 * @param args
+	 * the game. 
+	 * @param args parameter passed into main method
 	 */
 	public static void main(String[] args) {
 		board = new GameUI();
@@ -40,7 +39,7 @@ public class GameEngine {
 	}
 
 	/**
-	 * getMap Method allows other classes to acces the array filled with
+	 * getMap Method allows other classes to access the array filled with
 	 * the postions of each shape.
 	 * 
 	 * @return map - Array containing all spots that have already have a shape
@@ -152,7 +151,6 @@ public class GameEngine {
 	/**
 	 * startGame Method is responsible for setting up the grid and class variables 
 	 * to the correct state for a new game to start and function properly.
-	 *
 	 */
 	public static void startGame() {
 		// Starts off with setting the Array map back to all empty spots

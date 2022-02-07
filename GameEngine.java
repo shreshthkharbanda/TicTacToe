@@ -1,8 +1,6 @@
 /**
  * 
- * @author Shantanu Singh and Shreshth Kharbanda
- * Advanced Programming Topics
- * Period 3
+ * @author Shreshth Kharbanda
  * TicTacToe
  * 
  * The GameEngine class is responsible for handling all of the games logical components,

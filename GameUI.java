@@ -1,8 +1,6 @@
 /**
  * 
- * @author Shantanu Singh and Shreshth Kharbanda
- * Advance Programming Topics
- * Period 3
+ * @author Shreshth Kharbanda
  * TicTacToe
  * 
  * The GameUI class is responsible for displaying and setting up all the features
